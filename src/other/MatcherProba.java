@@ -14,17 +14,23 @@ import java.util.regex.Pattern;
 public class MatcherProba {
     
     public static class LoggingRecord {//implements Serializable {
+        public String message;
                 
+        LoggingRecord(String mes) {
+            message = mes;
+        }
+        
         public String getMessage() {
-		return (String) null;
+		return message;
 	}
     }
     
      public static void main(String[] args) {
-        LoggingRecord logrecord = new LoggingRecord();
-        String message = null;
+        //LoggingRecord logrecord = new LoggingRecord("Check Sum Failures.");
+        //LoggingRecord logrecord = new LoggingRecord("Valami");
+        LoggingRecord logrecord = new LoggingRecord(null);
         Pattern patternCheckSum = Pattern.compile(".*Check Sum Failures.*", Pattern.MULTILINE);
-	if (!patternCheckSum.matcher(logrecord.getMessage()).find()) {
+	if (!patternCheckSum.matcher(logrecord.getMessage()).find()) { //"java.lang.NullPointerException" hiba amennyiben a null az üzenet
             System.out.println("Nincs :-(");
         } else {
             System.out.println("Megvan");
