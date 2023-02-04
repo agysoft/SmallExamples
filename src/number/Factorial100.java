@@ -69,7 +69,21 @@ public class Factorial100 {
         }
     }
 
+    public static void chatAIFactorial() {
+        int num = 100;
+        BigInteger factorial = BigInteger.valueOf(1);
+        for (int i = 1; i <= num; i++) {
+            factorial = factorial.multiply(BigInteger.valueOf(i));
+        }
+        System.out.println("100 faktoriális = " + factorial);
+    }
+
+
+    
     public static void main(String[] args) {
+        //Mesterséges inteligencia által generált kód
+        chatAIFactorial();
+        
         int[] result = bigFactorial(100);
 
         //Print in reverse

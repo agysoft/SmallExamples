@@ -1,13 +1,10 @@
 /*
-
+ *
  */
 package text;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.List;
-import java.util.Locale;
 
 /**
  *
