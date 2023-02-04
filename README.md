@@ -1,0 +1,2 @@
+# SmallExamples
+Kis példaprogramok
