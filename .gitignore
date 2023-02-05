@@ -1,5 +1,7 @@
 # Compiled class file
 *.class
+/build/
+/dist/
 
 # Log file
 *.log
