@@ -12,6 +12,7 @@ import java.util.Locale;
 /**
  *
  * @author laszlo.nagy
+ * ezt csa a git miatt próbából került bele
  */
 public class FormatterProba {
 
