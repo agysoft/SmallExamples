@@ -13,6 +13,7 @@ import java.util.Locale;
  *
  * @author laszlo.nagy
  * ezt csa a git miatt próbából került bele
+ * Ezt meg a régi Lenóvóról küldöm fel
  */
 public class FormatterProba {
 
