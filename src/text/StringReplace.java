@@ -6,7 +6,7 @@
 package text;
 
 /**
- *
+ * Csak egy kis módosítás a letöltés próbájához
  * @author laszlo.nagy
  */
 public class StringReplace {
