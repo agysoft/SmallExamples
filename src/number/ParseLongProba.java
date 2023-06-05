@@ -25,7 +25,19 @@ public class ParseLongProba {
         long l = Long.parseLong(numStr.trim());
         
         System.out.println("long: "+l);
+        
+        String value = "-1234.5";
+        System.out.println(value.replaceFirst("(?:\\.)+", "X"));
+        
+        if (isNumber(value.replaceFirst("\\.", ""))) {
+            System.out.println(value + " is Number");
+        } else {
+            System.out.println(value + " is NOT Number!");
+        }
+        
     }
     
-
+    public static boolean isNumber(String string) {
+        return (string != null) && (string.length() > 0) && string.matches("^\\d+$");
+    }
 }
