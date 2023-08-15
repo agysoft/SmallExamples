@@ -14,6 +14,7 @@ public class IFKiertekeles {
 
     /**
      * @param args the command line arguments
+     * csak a próba kedvéért
      */
     public static void main(String[] args) {
         
