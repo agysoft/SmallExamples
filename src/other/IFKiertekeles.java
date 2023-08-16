@@ -14,6 +14,7 @@ public class IFKiertekeles {
 
     /**
      * @param args the command line arguments
+     * csak a próba kedvéért
      */
     public static void main(String[] args) {
         
@@ -25,6 +26,23 @@ public class IFKiertekeles {
             System.out.println("Az állítás HAMIS!!!");
         }
             
+        System.out.println("Start If kiértékelés 2.");
+        
+        if ( false || false && true ){
+        //if ("valami".equals(null)) {
+            System.out.println("Az állítás IGAZ!");
+        } else {
+            System.out.println("Az állítás HAMIS!!!");
+        }
+        
+        System.out.println("Start If kiértékelés 3.");
+        
+        if ( false || false && true ){
+        //if ("valami".equals(null)) {
+            System.out.println("Az állítás IGAZ!");
+        } else {
+            System.out.println("Az állítás HAMIS!!!");
+        }
         
     }
     
