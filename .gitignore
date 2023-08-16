@@ -3,6 +3,10 @@
 /build/
 /dist/
 
+# Eclipse config files
+private.xml
+private.properties
+
 # Log file
 *.log
 
