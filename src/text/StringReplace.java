@@ -20,6 +20,9 @@ public class StringReplace {
         String str = "OnlyForProduct&Book:ExternalREF";
         //Az & jel miatt volt érdekes
         System.out.println(str.replaceAll("OnlyForProduct&Book:","")); 
+        
+        System.out.println("NAV_K92".toLowerCase().replaceAll("_","")); 
+        
     }
     
 }

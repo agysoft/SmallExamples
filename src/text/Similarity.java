@@ -16,17 +16,19 @@ public class Similarity {
      */
     public static void main(String[] args) {
         System.out.println("Hello World!");
-       
-        byte maxI = 6;
-        byte maxJ = 4;
-        for (byte i=1; i<=maxI; i++) {
-            for (byte j=1; j<=maxJ; j++) {
-                System.out.print(" "+locationMultiplier(j,i,maxJ,maxI));
-            }
-            System.out.println();
-        }
         
-        //System.out.println(similarWord("falak","fal"));
+        System.out.println("kutya és kutya: "+similarText("Kutya","kutya")+"%"); //100%      
+        System.out.println("mama és papa: "+similarText("mama","PAPA")+"%"); //50% 
+        System.out.println("cipőfűző és kakas: "+similarText("cipőfűző","kakas")+"%"); //0% 
+
+        System.out.println("Pisti<=>kimegy: "+similarWord("Pisti","kimegy")+"%"); //20%
+        System.out.println("Pisti<=>kimegy: "+similarText("Pisti","kimegy")+"%"); //20%
+        
+        System.out.println("Piroska fát vág <==> piroska fát VÁG: "+similarText("Piroska fát vág","piroska fát VÁG")+"%");   //100%
+        System.out.println("Zulu bemegy a konyhába <==> Pisti bemegy a konyhába: "+similarText("Zulu bemegy a konyhába","Pisti bemegy a konyhába")+"%");   //75%
+        System.out.println("Bubu gyorsan fut <==> Macska keveset alszik: "+similarText("Bubu gyorsan fut","Macska keveset alszik")+"%");   //0%
+        
+        
         System.out.println("fát és vág: "+similarWord("fát","vág")+"%");  
      
         
@@ -34,11 +36,24 @@ public class Similarity {
         System.out.println("mama és papa: "+similarWord("mama","PAPA")+"%"); //50% 
         System.out.println("cipőfűző és kakas: "+similarWord("cipőfűző","kakas")+"%"); //0% 
         
+        
+    
+        
+        
         System.out.println("falak és fal: "+similarWord("falak","fal")+"%");  
      
         System.out.println("Internetről két random mondat: "+similarWord(
                 "Ez a bicsaklás isteni ürügy arra, hogy az RTL megújuljon.",
                 "Megdöbbentő döntést hozott a Momentum: nyilvánosan a terroristák mellé álltak")+"%");
+        
+        
+        System.out.println("Internetről két random mondat: "+similarText(
+                "Ez a bicsaklás isteni ürügy arra, hogy az RTL megújuljon.",
+                "Megdöbbentő döntést hozott a Momentum: nyilvánosan a terroristák mellé álltak")+"%");
+        
+        System.out.println("Internetről két random mondat megcserélve: "+similarText(
+                "Megdöbbentő döntést hozott a Momentum nyilvánosan a terroristák mellé álltak",
+                "Ez a bicsaklás isteni ürügy arra hogy az RTL megújuljon.")+"%");
         
     }
     
@@ -54,11 +69,34 @@ public class Similarity {
      * 
      * példák: 
      * Piroska fát vág <==> piroska fát VÁG => 100%
-     * Géza kimegy a konyhába <==> Pisti kimegy a konyhába => 75%
+     * Zulu bemegy a konyhába <==> Pisti bemegy a konyhába => 75%
      * Kutya gyorsan fut <==> Macska kevest alszik => 0%
      */
     public static byte similarText(String a, String b) {
-        return 0;
+        return (byte)((similarTextP(a,b)+similarTextP(b,a))/2);
+    }
+    
+    public static byte similarTextP(String a, String b) {
+        String[] as = a.split(" ");
+        String[] bs = b.split(" ");
+        byte maxI = (byte) as.length;
+        byte maxJ = (byte) bs.length;
+        int maxSum = 0;
+        for (byte i=1; i<=maxI; i++) {
+            int maxLocal = 0;
+            for (byte j=1; j<=maxJ; j++) {
+                byte lM = locationMultiplier(j,i,maxJ,maxI);
+                byte sW = similarWord(bs[j-1],as[i-1]);
+                byte lmsw = (byte) (lM*sW/100);
+                //System.out.print(" "+lM+"x"+sW+"="+lmsw);
+                if (lmsw > maxLocal) {
+                    maxLocal = lmsw;
+                }
+            }
+            //System.out.println();
+            maxSum += maxLocal;
+        }
+        return (byte) (maxSum/maxI);
     }
     
     /**
@@ -156,10 +194,20 @@ public class Similarity {
      */
     public static byte locationMultiplier(byte posA, byte posB, byte lenA, byte lenB) {
        
-        float a = (float)(lenB-1)/(float)(lenA-1);
+        float a = 1;
+        if (lenA>1 && lenB>1){
+            a = (float)(lenB-1)/(float)(lenA-1);
+        }
+        
         float b = 1-a;
         
         return (byte) Math.round(Math.max(0, 100-Math.abs((float)posA*a+b-posB)*10));
+        
+    }
+    
+    public static byte wordNum(String text) {
+       
+        return (byte) text.split(" ").length;
         
     }
 }
