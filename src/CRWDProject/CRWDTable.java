@@ -42,7 +42,7 @@ class CRWDTable {
         */
         for (int i = 0; i < this.height; i++) {
             tbl[rand.nextInt(width)][i] = black;
-            //tbl[rand.nextInt(width)][i] = black;
+            tbl[rand.nextInt(width)][i] = black;
         }
         
         
@@ -56,6 +56,62 @@ class CRWDTable {
         
     }
 
+    public void InitTable_2() {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                tbl[i][j] = space;
+            }
+        }
+        
+        //Megfejtés feltöltése
+        this.setWord(new CWord(CWOrientation.HORIZONTAL, 0, 0, 10),"ELSŐKERESZ");
+        this.setWord(new CWord(CWOrientation.VERTICAL, 9, 1, 9),"TREJTVÉNY");
+        
+        this.setWord(new CWord(CWOrientation.VERTICAL, 0, 2, 8),"GENERÁLÓ");
+        this.setWord(new CWord(CWOrientation.HORIZONTAL, 1, 9, 7),"PROGRAM");
+        
+        tbl[0][1] = black;
+        tbl[8][9] = black;
+        /*
+        Random rand = new Random();
+        for (int i = 1; i < this.height-1; i++) {
+            tbl[rand.nextInt(width-2)+1][i] = black;
+            tbl[rand.nextInt(width-2)+1][i] = black;
+           
+        }
+        */
+        
+       // tbl[2][1] = black;
+        tbl[3][1] = black;
+        tbl[8][1] = black;
+        
+        
+        tbl[4][2] = black;
+        tbl[6][2] = black;
+        
+        tbl[1][3] = black;
+        //tbl[3][3] = black;
+        tbl[8][3] = black;
+        
+        tbl[1][4] = black;
+        tbl[4][4] = black;
+                
+        //tbl[1][5] = black;
+        tbl[3][5] = black;
+        tbl[5][5] = black;
+        
+        tbl[2][6] = black;
+        tbl[7][6] = black;
+        
+        tbl[3][7] = black;
+        tbl[6][7] = black;
+        //tbl[7][7] = black;
+        
+        tbl[1][8] = black;
+        tbl[7][8] = black;
+        //tbl[8][8] = black;
+    
+    }
     
     public void Showtable() {
         for (int j = 0; j < height; j++) {
@@ -73,7 +129,7 @@ class CRWDTable {
             int sx = 0;
             int l = 0;
             for (int i = 0; i < width; i++) {
-                if (tbl[i][j] == space) {
+                if (tbl[i][j] != black) {
                     l++;
                 } else {
                     if (l >= minLength) {
@@ -92,7 +148,7 @@ class CRWDTable {
             int sy = 0;
             int l = 0;
             for (int j = 0; j < height; j++) {
-                if (tbl[i][j] == space) {
+                if (tbl[i][j] != black) {
                     l++;
                 } else {
                     if (l >= minLength) {

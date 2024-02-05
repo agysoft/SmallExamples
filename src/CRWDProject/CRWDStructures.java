@@ -52,11 +52,16 @@ class CWord {
 
 
 public class CRWDStructures {
+    static int solution = 0;
+    static int max_dept = 0;
     
     public static void generateCRWD(CRWDTable ct, List<CWord> list, CRWDWordSet ws, List<CWord>[] intersectionList, int dept) {
-
+        if (dept > CRWDStructures.max_dept) {
+            System.out.println("Elértem a "+CRWDStructures.max_dept +". mélységet! ");
+            CRWDStructures.max_dept = dept;
+        }
         if (dept >= list.size()) {
-            System.out.println("Elkészült egy megoldás ... ");
+            System.out.println("Elkészült a "+CRWDStructures.solution++ +". megoldás is! ");
             ct.Showtable();
         } else {
             CWord cw = list.get(dept);
@@ -86,9 +91,14 @@ public class CRWDStructures {
     
     public static boolean existsIntersection(CWord cw1, CWord cw2) {
         //Létezik közös négyzet a két keresztrejtvény sor között
-        return cw1.orientation != cw2.orientation
-            && cw2.startY <= cw1.startY && cw1.startY <= cw2.startY+cw2.length
-            && cw1.startX <= cw2.startX && cw2.startX <= cw1.startX+cw1.length;
+        if (cw1.orientation == cw2.orientation) return false;
+        if (cw1.orientation == CWOrientation.HORIZONTAL) {
+            return cw2.startY <= cw1.startY && cw1.startY <= cw2.startY+cw2.length
+                && cw1.startX <= cw2.startX && cw2.startX <= cw1.startX+cw1.length;
+        } else {
+            return cw1.startY <= cw2.startY && cw2.startY <= cw1.startY+cw1.length
+                && cw2.startX <= cw1.startX && cw1.startX <= cw2.startX+cw2.length;
+        }
     }
     
     
@@ -97,16 +107,32 @@ public class CRWDStructures {
             System.out.println("CrossWord Structures Initial!");
             
             CRWDWordSet ws = new CRWDWordSet();
-            ws.Init("1 Trónok harca - HU.txt");
+            //ws.Init("1 Trónok harca - HU.txt");
+            //ws.Init("thinking_in_java.txt");
+            //ws.Init("szavak.txt");
+            //ws.Init("szavak_1-15_cca300k.txt");
+            ws.Init("szavak_300k.txt");
+            
+            
             System.out.println("CrossWordSet Initialized!");
             ws.showWordNums();
             
             //System.out.println("CRWDWordSet.getWord(2,2) -> "+ws.getWord(3,3));
             
             
-            //CRWDTable ct = new CRWDTable(5,5);
-            CRWDTable ct = new CRWDTable(8,7);
+        //Véletlen tábla generálása
+            CRWDTable ct = new CRWDTable(9,9);
             ct.InitTable();
+        //Első típusú tábla generálása
+        /*    
+            CRWDTable ct = new CRWDTable(10,10);
+            ct.InitTable_2();
+            
+            ws.setWord(1,"ELSŐKERESZ");
+            ws.setWord(2,"ZTREJTVÉNY");
+            ws.setWord(1,"GENERÁLÓ");
+            ws.setWord(2,"ÓPROGRAM");
+        */
             ct.Showtable();
             List<CWord> list = ct.getWords(3);
             Collections.sort(list,(cw1,cw2) -> cw2.length-cw1.length);
@@ -119,7 +145,6 @@ public class CRWDStructures {
             class ArrayListCWord extends ArrayList<CWord> {}
             List<CWord>[] intersectionList = new ArrayListCWord[list.size()];
             
-
             for (int i = 0; i<list.size(); i++) {
                 CWord cw = list.get(i);
                 System.out.println(cw);
@@ -130,13 +155,15 @@ public class CRWDStructures {
                     }
                 }
             } 
+            
+            //System.out.println("intersectionList[2]: "+intersectionList[2]);
             /* existsIntersection tesztelése
             for (CWord cw1:list) {
                 for (CWord cw2:list) {
                     System.out.println(cw1+"<=>"+cw2+": "+existsIntersection(cw1,cw2));
                 }
             } 
-            */
+           */
             //System.out.println("ct.getPattern(list.get(3)); -> "+ct.getPattern(list.get(3)));
             //ct.setWord(list.get(0), "ALMÁK");
             //ct.setWord(list.get(1), "ALKOT");
@@ -144,7 +171,8 @@ public class CRWDStructures {
             //ct.Showtable();
             
             //System.out.println("getSuitable -> "+ws.getSuitable(ct.getPattern(list.get(3))));
-         
+            CRWDStructures.solution = 0;
+            CRWDStructures.max_dept = 0;
             generateCRWD(ct, list, ws, intersectionList,  0);
             
             System.out.println("Vége nincs több megoldás!!!");
